@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "Sample Login",
+  "description": "Sample login through backend",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "start.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery.js", "myScript.js"]
+    }
+  ],
+  "permissions": [
+    "<all_urls>",
+    "cookies",
+    "activeTab",
+    "tabs",
+    "https://ajax.googleapis.com/"
+  ]
+}

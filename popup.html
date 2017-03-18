@@ -1,0 +1,94 @@
+<!--<?php
+include_once('config.php');
+
+error_reporting(1);
+// Reset errors and success messages
+$errors = array();
+$success = array();
+
+
+?>-->
+
+<!DOCTYPE html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Extension</title>
+    <style type = "text/css">
+        body {
+            margin: 0px;
+            padding: 0px 12px 12px 12px;
+            font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+            font-size: 100%;
+            min-width:320px;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        input[type=button] {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            outline: 1px solid orange;
+        }
+
+        span.psw {
+            float: right;
+        }
+    </style>
+
+</head>
+<body>
+
+<div>
+    <center><h3 class="box-title">Log in</h3></center>
+</div>
+<form id="form">
+    <div>
+        <label> <b>Email Address</b> </label>
+    </div>
+    <div>
+        <input placeholder="Email" type="text" id="email" required>
+    </div>
+    <div>
+        <label> <b>Password</b> </label>
+    </div>
+    <div>
+        <input placeholder="Password" type="password" id="password" required>
+    </div>
+    <div id="errorMessage"></div>
+    <div>
+        <input type="button" id="submit" value="Sign in">
+        <script src='jquery.js'></script>
+        <script src="popup.js"></script>
+    </div>
+</form>
+<div>
+    <input type="checkbox" checked="checked"> Remember me
+    <span class="psw"><a href="#">Forgot password?</a></span>
+</div>
+
+</body>
+</html>
+
