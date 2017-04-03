@@ -5,6 +5,14 @@ chrome.cookies.get(getCookiesDetails, function (cookie) {
     userID = cookie;
 });
 
+document.getElementById('redirect').onclick = function redirect() {
+    var createProperties = {
+        url: "http://localhost/FYP/Stefcho/index.html",
+        active: true
+    };
+    chrome.tabs.create(createProperties);
+}
+
 document.getElementById('logOut').onclick = function callPHP() {
 
     $.ajax({
@@ -37,6 +45,7 @@ document.getElementById('remove').onclick = function addWebsite() {
             success: function (data) { // on success the request returns the PHP echo as "data"
                 data = data.toString().trim();
                 console.log(data);
+                window.location.replace("popup2.html");
             }
         });
     });

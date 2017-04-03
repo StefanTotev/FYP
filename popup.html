@@ -1,20 +1,4 @@
-<!--<?php
-include_once('config.php');
-
-error_reporting(1);
-// Reset errors and success messages
-$errors = array();
-$success = array();
-
-
-?>-->
-
 <!DOCTYPE html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -80,14 +64,13 @@ $success = array();
     <div id="errorMessage"></div>
     <div>
         <input type="button" id="submit" value="Sign in">
+    </div>
+    <div>
+        <input type="button" id="createUser" value="Create New User">
         <script src='jquery.js'></script>
         <script src="popup.js"></script>
     </div>
 </form>
-<div>
-    <input type="checkbox" checked="checked"> Remember me
-    <span class="psw"><a href="#">Forgot password?</a></span>
-</div>
 
 </body>
 </html>

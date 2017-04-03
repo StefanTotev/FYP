@@ -1,20 +1,4 @@
-<!--<?php
-include_once('config.php');
-
-error_reporting(1);
-// Reset errors and success messages
-$errors = array();
-$success = array();
-
-
-?>-->
-
 <!DOCTYPE html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
 <head>
     <script src="checkLogIn.js"></script>
@@ -35,7 +19,7 @@ $success = array();
 
         input[type=button] {
             text-decoration: none;
-            background-color: #af484d;
+            background-color: #010000;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -54,9 +38,6 @@ $success = array();
             outline: 1px solid orange;
         }
 
-        span.psw {
-            float: right;
-        }
     </style>
 </head>
 <body>
@@ -66,16 +47,10 @@ $success = array();
 </div>
 <div>
     <div>
-        <label> <b>Advice</b> </label>
+        <input style="background-color: #4CAF50;" type="button" id="redirect" value="Statistics about your use of this website">
     </div>
     <div>
-        <h1><time>00:00:00</time></h1>
-        <div id="timeStamp">
-            <button id="start">start</button>
-        </div>
-    </div>
-    <div>
-        <input type="button" id="remove" value="Do not track this website anymore">
+        <input style="background-color: #af484d;" type="button" id="remove" value="Do not track this website anymore">
     </div>
     <div>
         <input type="button" id="logOut" value="Log out">
