@@ -9,7 +9,7 @@ document.getElementById('logOut').onclick = function callPHP() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/FYP/logout.php",
+        url: "http://52.56.238.131/logout.php",
         data: {"userID": userID.value},
         success: function (data) { // on success the request returns the PHP echo as "data"
             data = data.toString().trim();
@@ -40,14 +40,14 @@ function addWebsite(type) {
             var url = new URL(tab.url);
             var domain = url.hostname;
 
-            if(domain != 'localhost') {
+            if(domain != '52.56.238.131') {
                 var data = {"userID": userID.value,
                     "website": domain,
                     "time": time,
                     "type": type};
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost/FYP/addWebsite.php",
+                    url: "http://52.56.238.131/addWebsite.php",
                     data: data,
                     success: function (data) { // on success the request returns the PHP echo as "data"
                         data = data.toString().trim();

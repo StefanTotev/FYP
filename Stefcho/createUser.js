@@ -7,7 +7,7 @@ document.getElementById('createUser').onclick = function createUser() {
     if(f.checkValidity() && password == repeatPassword) {
         $.ajax({
             type: "POST",
-            url: "http://52.56.238.131/createUser.php",
+            url: "http://localhost/FYP/createUser.php",
             data: {"email": email,
                 "password": password},
             success: function (data) { // on success the request returns the PHP echo as "data"

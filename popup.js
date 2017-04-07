@@ -3,7 +3,7 @@ document.getElementById('submit').onclick = function callPHP() {
     if(f.checkValidity()) {
         $.ajax({
             type: "POST",
-            url: "http://localhost/FYP/index.php",
+            url: "http://52.56.238.131/index.php",
             data: {"email": document.getElementById('email').value,
                 "password": document.getElementById('password').value},
             success: function (data) { // on success the request returns the PHP echo as "data"

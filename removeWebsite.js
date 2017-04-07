@@ -7,7 +7,7 @@ chrome.cookies.get(getCookiesDetails, function (cookie) {
 
 document.getElementById('redirect').onclick = function redirect() {
     var createProperties = {
-        url: "http://localhost/FYP/Stefcho/index.html",
+        url: "http://52.56.238.131/Stefcho/index.html",
         active: true
     };
     chrome.tabs.create(createProperties);
@@ -17,7 +17,7 @@ document.getElementById('logOut').onclick = function callPHP() {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/FYP/logout.php",
+        url: "http://52.56.238.131/logout.php",
         data: {"userID": userID.value},
         success: function (data) { // on success the request returns the PHP echo as "data"
             data = data.toString().trim();
@@ -40,7 +40,7 @@ document.getElementById('remove').onclick = function addWebsite() {
                     "website": domain};
         $.ajax({
             type: "POST",
-            url: "http://localhost/FYP/removeWebsite.php",
+            url: "http://52.56.238.131/removeWebsite.php",
             data: data,
             success: function (data) { // on success the request returns the PHP echo as "data"
                 data = data.toString().trim();

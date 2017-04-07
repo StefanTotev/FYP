@@ -19,7 +19,7 @@ chrome.tabs.getSelected(null, function (tab) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/FYP/getWebsite.php",
+        url: "http://52.56.238.131/getWebsite.php",
         data: data,
         success: function (data) { // on success the request returns the PHP echo as "data"
             data = data.toString().trim();

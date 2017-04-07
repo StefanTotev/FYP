@@ -20,7 +20,7 @@ if(mysqli_num_rows($userResult) == 1){
     $isUserLoggedIn = true;  
 }else{  
     if(basename($_SERVER['PHP_SELF']) != 'index.php'){  
-        header('Location: index.php');  
+        header('Location: logInError.php');  
         exit;  
     }  
 }  

@@ -15,9 +15,21 @@ if(isset($_POST['email']) && isset($_POST['password'])){
                                     password = "' . mysqli_real_escape_string($dbLink, md5($userPassword)) . '"';
 
     if(mysqli_query($dbLink,$query)){
-        echo 'success';
+    	$query  = 'SELECT id FROM users WHERE email = "' . mysqli_real_escape_string($dbLink, $userEmail) . '" AND password = MD5("' . $userPassword . '") LIMIT 1';
+        $result = mysqli_query($dbLink, $query);
+        $id = mysqli_fetch_assoc($result);
+        $id = $id['id'];
+
+        if(mysqli_num_rows($result) > 0) {
+        	$query = 'INSERT INTO websites SET userId = ("' . mysqli_real_escape_string($dbLink, $id) . '"), 
+                                       website = "other",
+                                       preferedTime = "24:00:00",
+                                       webType = "other"';
+			mysqli_query($dbLink, $query);
+			echo 'success';
+        }
     }else{
-        echo $userEmail . " " . $userPassword;
+        echo 'failure';
     }
 }
 ?>

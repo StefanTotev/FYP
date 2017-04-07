@@ -2,15 +2,6 @@ var activeTab = null, currentDate, currentTab = null, previousDate, previousWebs
     diff, days, hrs, min, sec, realCookie = null, periodicalTimeout = null;
 previousDate = new Date();
 
-chrome.tabs.onCreated.addListener(function (tab) {
-    chrome.tabs.getSelected(null,function(tab) {
-        var tablink = tab.url;
-        if(tablink == 'chrome://newtab/') {
-            chrome.tabs.update({url: "http://localhost/FYP/Stefcho/index.html"});
-        }
-    });
-});
-
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
     currentTab = sender.tab.id;
     if(sender.tab.id == activeTab && request != previousWebsite) {
@@ -82,7 +73,7 @@ function addTime(tabId, cookie, request, website, time, type) {
     clearTimeout(periodicalTimeout);
     $.ajax({
         type: "POST",
-        url: "http://localhost/FYP/addTime.php",
+        url: "http://52.56.238.131/addTime.php",
         data: {"userID": cookie.value,
             "prevWebsite": request,
             "currWebsite": website,
@@ -93,14 +84,14 @@ function addTime(tabId, cookie, request, website, time, type) {
             if(data == "pass") {
             } else if (data == "block") {
                 displayNotification("Warning!", "You will no longer have access to this website until the end of the day!", "redTick.png", 100);
-                chrome.tabs.update({url: "http://localhost/FYP/Stefcho/index.html"});
+                chrome.tabs.update({url: "http://52.56.238.131/Stefcho/index.html"});
             } else if (data == "done") {
                 displayNotification("Congratulations!", "You have achieved your daily target for this website! Keep up the good work!", "greenTick.png", 100);
             } else {
                 var returnVal = data.split(" ");
                 if(typeof returnVal[0] != "undefined") {
                     if (returnVal[0] == "neg5min") {
-                        displayNotification("Warning!", "You have less than 5 more minutes to browse this website!", "redTick.png", 90);
+                        displayNotification("Warning!", "You have less than 5 minutes to browse this website!", "redTick.png", 90);
                     } else if (returnVal[0] == "pos5min") {
                         displayNotification("Almost there!", "Less than 5 minutes to go!", "greenTick.png", 90);
                     } else if (returnVal[0] == "neg10min") {
@@ -118,6 +109,9 @@ function addTime(tabId, cookie, request, website, time, type) {
                     }
                 }
             }
+            periodicalTimeout = setTimeout(periodicalSend, 20000);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
             periodicalTimeout = setTimeout(periodicalSend, 20000);
         }
     });
@@ -149,7 +143,7 @@ function displayNotification(title1, message1, iconUrl1, progress1) {
 
 chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) {
     var createProperties = {
-        url: "http://localhost/FYP/Stefcho/index.html",
+        url: "http://52.56.238.131/Stefcho/index.html",
         active: true
     };
     chrome.tabs.create(createProperties);
