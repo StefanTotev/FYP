@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Sample Login",
-  "description": "Sample login through backend",
+  "name": "Habituo",
+  "description": "Browser Extension for improved productivity",
   "version": "1.0",
 
   "browser_action": {

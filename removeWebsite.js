@@ -7,7 +7,7 @@ chrome.cookies.get(getCookiesDetails, function (cookie) {
 
 document.getElementById('redirect').onclick = function redirect() {
     var createProperties = {
-        url: "http://52.56.238.131/Stefcho/index.html",
+        url: "http://52.56.238.131/",
         active: true
     };
     chrome.tabs.create(createProperties);

@@ -4,13 +4,6 @@
         $website = trim($_POST['website']);
         $time = $_POST['time'];
         $type = $_POST['type'];
-        $xp = 4;
-
-        if($type == 'negative') {
-            $xp = 4;
-        } else {
-            $xp = 0;
-        }
 
         include_once('Stefcho/config.php');
 
@@ -29,7 +22,7 @@
                                        dailyTime = "00:00:00",
                                        numberOfAccesses = 0,
                                        currentDate = "' . date("d/m/Y") . '",
-                                       xp = "' . $xp . '"';
+                                       xp = 0';
                 if(mysqli_query($dbLink, $query)) {
                     echo 'User created!';
                 } else {

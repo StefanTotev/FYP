@@ -5,6 +5,14 @@ chrome.cookies.get(getCookiesDetails, function (cookie) {
     userID = cookie;
 });
 
+document.getElementById('redirect').onclick = function redirect() {
+    var createProperties = {
+        url: "http://52.56.238.131/",
+        active: true
+    };
+    chrome.tabs.create(createProperties);
+}
+
 document.getElementById('logOut').onclick = function callPHP() {
 
     $.ajax({

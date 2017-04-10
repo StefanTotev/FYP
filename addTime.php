@@ -43,18 +43,12 @@
                 }
                 mysqli_query($dbLink, $query);
             } else {
-                $xp = 4;
-                if($webType['webType'] == 'negative') {
-                    $xp = 4;
-                } else {
-                    $xp = 0;
-                }
                 $query = 'INSERT INTO websiteuse SET userId = ("' . mysqli_real_escape_string($dbLink, $userID) . '"), 
                                        website = ("' . mysqli_real_escape_string($dbLink, $prevWebsite) . '"),
                                        dailyTime = "' . $newTime[0] . ":" . $newTime[1] . ":" . $newTime[2] . '",
                                        numberOfAccesses = 1,
                                        currentDate = "' . date("d/m/Y") . '",
-                                       xp = "' . $xp . '"';
+                                       xp = 0';
                 mysqli_query($dbLink, $query);
             }
         } else {
@@ -121,7 +115,7 @@
                 if($final > 0) {
                     if ($final <= 300 && $reminder != 'four') {
                         if ($webType == 'negative'){
-                            $xp = 1;
+                            $xp = 0;
                             echo 'neg5min ';
                         } else {
                             $xp = 4;
@@ -131,7 +125,7 @@
                         mysqli_query($dbLink, $query);
                     } else if ($final <= 600 && $reminder != 'three' && $reminder != 'four') {
                         if ($webType == 'negative'){
-                            $xp = 2;
+                            $xp = 0;
                             echo 'neg10min ';
                         } else {
                             $xp = 3;
@@ -141,7 +135,7 @@
                         mysqli_query($dbLink, $query);
                     } else if ($final <= 1200 && $reminder != 'two' && $reminder != 'three' && $reminder != 'four') {
                         if ($webType == 'negative'){
-                            $xp = 3;
+                            $xp = 0;
                             echo 'neg20min ';
                         } else {
                             $xp = 2;
@@ -151,7 +145,7 @@
                         mysqli_query($dbLink, $query);
                     } else if ($prefSecs/$currSecs <= 2 && $currSecs > 0 && $reminder != 'one' && $reminder != 'two' && $reminder != 'three' && $reminder != 'four') {
                         if ($webType == 'negative') {
-                            $xp = 4;
+                            $xp = 0;
                             echo 'negHalf ';
                         } else {
                             $xp = 1;
@@ -179,18 +173,12 @@
                     }
                 }
             } else {
-                $xp = 4;
-                if($webType == 'negative') {
-                    $xp = 4;
-                } else {
-                    $xp = 0;
-                }
                 $query = 'INSERT INTO websiteuse SET userId = ("' . mysqli_real_escape_string($dbLink, $userID) . '"), 
                                        website = ("' . mysqli_real_escape_string($dbLink, $currWebsite) . '"),
                                        dailyTime = "00:00:00",
                                        numberOfAccesses = 0,
                                        currentDate = "' . date("d/m/Y") . '",
-                                       xp = "' . $xp . '"';
+                                       xp =  0';
                 mysqli_query($dbLink, $query);
                 echo 'pass';
             }

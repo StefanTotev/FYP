@@ -52,5 +52,9 @@ for($i = 4; $i >= 0; $i--) {
     $data1[] = $tempArray;
 }
 
-echo json_encode(array($data1, $data2));
+$query = 'SELECT sum(xp) AS total_xp FROM websiteuse WHERE userId = "'  . $_SESSION['user'][id] . '"';
+$result = mysqli_query($dbLink, $query);
+$xp = mysqli_fetch_assoc($result);
+
+echo json_encode(array($data1, $data2, $xp['total_xp']));
 ?>

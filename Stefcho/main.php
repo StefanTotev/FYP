@@ -16,7 +16,7 @@ $success = array();
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="icon.png">
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,12 +28,7 @@ $success = array();
 
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <title>Habituo</title>
 </head>
 
 <body>
@@ -69,17 +64,26 @@ $success = array();
 <div class="container-fluid">
     
         <div class="col-sm-12">
-            <h1 class="page-header">Dashboard</h1>
+            <div class="col-sm-12 placeholder">
+                <div class="col-xs-6 col-sm-6 placeholder">
+                    <h1 class="page-header" >
+                        <span style="font-size: 30px" class="glyphicon glyphicon-equalizer"></span> Dashboard
+                    </h1>
+                </div>
+                <div class="col-xs-6 col-sm-6 placeholder">
+                    <h1 class="page-header" align="right"><span align="right" id="xpPoints"></span></h1>
+                </div>
+            </div>
 
             <div class="row placeholders">
 
                 <div class="col-xs-12 col-sm-12 placeholder">
-                    <h2><br/>Progress for each website compared to overall specified time for today<br/></h2>
+                    <h2><br/>Progress for each website compared to your set preferences<br/></h2>
                     <div class="dropdown" style="text-align:center;height:50px;">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="websiteDropdown1">
                             Website <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" id="dropDownMenu2" style="margin:10px auto; left:50%; margin-left:-80px; text-align:center;">
+                        <ul class="dropdown-menu" id="dropDownMenu2" style="margin:10px auto; left:50%; margin-left:-85px; text-align:center;">
                             <li class="dropdown-header"></li>
                         </ul>
                     </div>
@@ -88,7 +92,7 @@ $success = array();
                         
                     </div>
                 </div>
-                
+
                 <h2><br/>Overall Website Use<br/></h2>
                 <div class="dropdown" style="text-align:center;height:50px;">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dateDropdown">
@@ -146,7 +150,7 @@ $success = array();
                         <th>Time</th>
                         <th>Number of Visits</th>
                         <th>Date of Access</th>
-                        <th>XP</th>
+                        <th>Reward Points</th>
                     </tr>
                     </thead>
                     <tbody class="someclass">
@@ -200,6 +204,7 @@ $success = array();
     var dates = [];
     var checked = false;
     var myPieChart1, myPieChart2, myPieChart3, myPieChart4;
+    var overallRewardPoints = 0;
 
     var dynamicColors = function(type) {
         var r = Math.floor(Math.random() * 255);
@@ -253,14 +258,16 @@ $success = array();
     }
     var changeWebsite = function (number, preferedTime) {
         var progressResult;
-            for(var i = 0; i < data[0][4].length; i++) {
-                if(data[0][4][i].website == allWebsites[number]) {
-                    progressResult = data[0][4][i].dailyTime * 100 / preferedTime;
-                }
+        for(var i = 0; i < data[0][4].length; i++) {
+            if(data[0][4][i].website == allWebsites[number]) {
+                progressResult = data[0][4][i].dailyTime * 100 / preferedTime;
+                if(webType[number] == 'positive') $('#actualProgressBar').addClass('progress-bar-success').removeClass('progress-bar-danger');
+                else $('#actualProgressBar').addClass('progress-bar-danger').removeClass('progress-bar-success');
+                document.getElementById('websiteDropdown1').firstChild.data = allWebsites[number];
             }
-            if(progressResult > 100) progressResult = 100;
-    console.log(progressResult);
-        $('#actualProgressBar').css('width', progressResult+'%').attr('aria-valuenow', progressResult); 
+        }
+        if(progressResult > 100) progressResult = 100;
+        $('#actualProgressBar').css('width', progressResult+'%').attr('aria-valuenow', progressResult);
     }
 
     var createTablesTime = function(number) {
@@ -417,12 +424,13 @@ $success = array();
     
     $(document).ready(function(){
         $.ajax({
-        url: "http://localhost/FYP/Stefcho/mainCall.php",
+        url: "mainCall.php",
         method: "GET",
         success: function(newData) {
 
             data = newData;
             var userWebsites = data[1];
+	    overallRewardPoints = data[2];
 
             var dynColour;
             for(var i = 0; i < 5; i++) {
@@ -476,7 +484,7 @@ $success = array();
                         if(i == 0) {
                             var tempColor = dynamicColors('rgba');
                             lineChartData.push({label: 'Prefered: ' + allWebsites[j]});
-                            lineChartData[count].fill = true;
+                            lineChartData[count].fill = false;
                             lineChartData[count].lineTension = 0.1;
                             lineChartData[count].backgroundColor = tempColor + ", 0.05)";
                             lineChartData[count].borderColor = tempColor + ", 1)";
@@ -502,7 +510,7 @@ $success = array();
                     }
                 }
             }
-            console.log(lineChartData);
+
             var chartdata1 = {
                 labels: dates,
                 datasets: lineChartData
@@ -526,82 +534,24 @@ $success = array();
                 if(allWebsites[i] != 'other') $('#dropDownMenu2').append('<li><a onclick="changeWebsite(' + i + ', ' + preferedTime[i] + ');" id="websiteDropdowns' + i + '">' + allWebsites[i] + '</a></li>');
             }
 
-            var progressResult;
+            var progressResult, progressType;
             for(var i = 0; i < newData[0][4].length; i++) {
                 if(newData[0][4][i].website == allWebsites[0]) {
                     progressResult = newData[0][4][i].dailyTime * 100 / preferedTime[0];
                 }
             }
-        if(progressResult > 100) progressResult = 100;
+            if(progressResult > 100) progressResult = 100;
         
-
-            $('#progressBarResult1').append('<div class="progress-bar progress-bar-info" role="progressbar" id="actualProgressBar" aria-valuenow="' + progressResult + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + progressResult + '%"></div>');
+            if(webType[0] == 'positive') progressType = 'progress-bar-success';
+            else progressType = 'progress-bar-danger';
+            $('#progressBarResult1').append('<div class="progress-bar ' + progressType + '" role="progressbar" id="actualProgressBar" aria-valuenow="' + progressResult + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + progressResult + '%"></div>');
             
+            document.getElementById("xpPoints").textContent= "Reward Points: " + overallRewardPoints + " ";
+            $('#xpPoints').append('<span style="font-size: 30px" class="glyphicon glyphicon-ok-sign"></span>');
 
             $('#table').DataTable({
                 "aaSorting": [[3,'des']]
             });
-
-            /*var ctx = document.getElementById('pieChartTime1'); 
-            var chartdata = {
-                labels: visitedWebsites,
-                datasets : [
-                    {
-                        label: 'Website Use',
-                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
-                        borderColor: 'rgba(200, 200, 200, 0.75)',
-                        hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                        hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                        data: time
-                    }
-                ]
-            };
-
-            var barGraph = new Chart(ctx, {
-                type: 'bar',
-                data: chartdata
-            });*/
-
-            /*var ctx = document.getElementById('pieChartAccess1'); 
-            var rgbaColor1 = dynamicColors("rgba");
-            var rgbaColor2 = dynamicColors("rgba");
-            var data = {
-                labels: websiteUse,
-                datasets: [
-                    {
-                        label: "Indicated Prefered Time",
-                        backgroundColor: rgbaColor1 + ", 0.2)",
-                        borderColor: rgbaColor1 + ", 1)",
-                        pointBackgroundColor: rgbaColor1 + ", 1)",
-                        pointBorderColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: rgbaColor1 + ", 1)",
-                        data: [65, 59, 90, 81, 56]
-                    },
-                    {
-                        label: "Actual Usage",
-                        backgroundColor: rgbaColor2 + ", 0.2)",
-                        borderColor: rgbaColor2 + ", 1)",
-                        pointBackgroundColor: rgbaColor2 + ", 1)",
-                        pointBorderColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: rgbaColor2 + ", 1)",
-                        data: [28, 48, 40, 19, 96]
-                    }
-                ]
-            };
-            new Chart(ctx, {
-                type: "radar",
-                data: data,
-                options: {
-                        scale: {
-                            reverse: true,
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }
-                }
-            });*/
 
         },
         error: function(data) {
