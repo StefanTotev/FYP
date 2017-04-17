@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "Habituo",
+  "description": "Full Browser Extension for improved productivity",
+  "version": "2.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "start.html"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery.js", "myScript.js"]
+    }
+  ],
+  "permissions": [
+    "<all_urls>",
+    "cookies",
+    "background",
+    "activeTab",
+    "webNavigation",
+    "tabs",
+    "notifications",
+    "https://ajax.googleapis.com/"
+  ]
+}

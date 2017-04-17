@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Successful</title>
+    <style type = "text/css">
+        body {
+            margin: 0px;
+            padding: 0px 12px 12px 12px;
+            font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+            font-size: 100%;
+            min-width:320px;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        input[type=button] {
+            text-decoration: none;
+            background-color: #010000;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            outline: 1px solid orange;
+        }
+
+    </style>
+</head>
+<body>
+
+<div>
+    <center><h3 class="box-title">Track Current Website</h3></center>
+</div>
+<div>
+    <div>
+        <label> <b>Desired Time Per Day</b> </label>
+    </div>
+    <div>
+        <input placeholder="hh:mm:ss" type="text" id="time" required>
+    </div>
+    <div id="errorMessage"></div>
+    <div>
+        <input style="background-color: #4CAF50; width: 49%;" type="button" id="addPositive" value="Add as a positive">
+        <input style="background-color: #af484d; width: 49%;" type="button" id="addNegative" value="Add as a negative">
+    </div>
+    <div>
+        <input type="button" id="logOut" value="Log out">
+    </div>
+    <script src='jquery.js'></script>
+    <script src="popup2.js"></script>
+</div>
+
+</body>
+</html>
+
